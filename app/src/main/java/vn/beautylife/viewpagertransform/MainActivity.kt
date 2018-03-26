@@ -10,6 +10,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.MotionEvent
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
+import vn.beautylife.pagertransformerlibrary.AccordionTransformer
+import vn.beautylife.pagertransformerlibrary.DepthPageTransformer
+import vn.beautylife.pagertransformerlibrary.ZoomOutSlideTransformer
+import vn.beautylife.pagertransformerlibrary.ZoomOutTransformer
 import kotlin.math.abs
 
 class MainActivity : AppCompatActivity(), View.OnTouchListener {
@@ -51,7 +55,7 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener {
         val imageAdapter = ImagePagerAdapter(supportFragmentManager, imageList)
         viewPager.run {
             adapter = imageAdapter
-            //setPageTransformer(true, )
+            setPageTransformer(true, AccordionTransformer())
             offscreenPageLimit = 4
             currentItem = initialPosition
             setOnTouchListener(this@MainActivity)
