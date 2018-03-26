@@ -96,13 +96,14 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener {
     }
 
     private fun showRecyclerView(show: Boolean = true) {
+        if (show) recyclerView.visibility = View.VISIBLE
         recyclerView.animate()
                 .alpha(if (show) 1f else 0f)
                 .setDuration(500)
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator?) {
                         super.onAnimationEnd(animation)
-                        recyclerView.visibility = if (show) View.VISIBLE else View.GONE
+                        if (!show) recyclerView.visibility = View.GONE
                     }
                 })
                 .start()
