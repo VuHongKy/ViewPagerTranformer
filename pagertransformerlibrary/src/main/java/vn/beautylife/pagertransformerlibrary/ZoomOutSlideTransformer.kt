@@ -4,6 +4,9 @@ import android.view.View
 import kotlin.math.abs
 import kotlin.math.max
 
+/**
+ * beautiful
+ */
 class ZoomOutSlideTransformer(private val fadeAnimation: Boolean = false) : BaseTransformer() {
     companion object {
         const val MIN_SCALE = 0.85f

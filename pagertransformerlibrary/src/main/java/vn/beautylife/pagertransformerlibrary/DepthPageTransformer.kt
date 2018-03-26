@@ -3,6 +3,9 @@ package vn.beautylife.pagertransformerlibrary
 import android.view.View
 import kotlin.math.abs
 
+/**
+ * beautiful
+ */
 class DepthPageTransformer(private val fadeAnimation: Boolean = false) : BaseTransformer() {
     companion object {
         const val MIN_SCALE = 0.75f

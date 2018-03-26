@@ -2,22 +2,23 @@ package vn.beautylife.pagertransformerlibrary
 
 import android.view.View
 import kotlin.math.abs
+import kotlin.math.max
 
 /**
- * beautiful
+ * So so
  */
-class ZoomOutTransformer : BaseTransformer() {
+class ForegroundToBackgroundTransformer : BaseTransformer() {
 
     override fun onTransform(page: View, position: Float) {
-        val scaleFactor = 1f + abs(position)
+        val scaleFactor = max(if (position > 0f) 1f else abs(1f + position), 0.5f)
+        val width = page.width
+        val height = page.height
         page.run {
-            val width = width
             scaleX = scaleFactor
             scaleY = scaleFactor
             pivotX = 0.5f * width
             pivotY = 0.5f * height
-            alpha = if (position < -1f || position > 1f) 0f else 1f - (scaleFactor - 1f)
-            if (position == -1f) translationX = width * (-1f)
+            translationX = if (position > 0f) width * position else -width * position * 0.25f
         }
     }
 
