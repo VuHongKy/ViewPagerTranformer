@@ -5,7 +5,7 @@ import kotlin.math.abs
 import kotlin.math.min
 
 /**
- * Not beautiful
+ * So so
  */
 class DrawFromBackTransformer : BaseTransformer() {
     companion object {

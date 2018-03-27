@@ -3,7 +3,7 @@ package vn.beautylife.pagertransformerlibrary
 import android.view.View
 
 /**
- * Not beautiful
+ * ...building
  */
 class CubeInTransformer : BaseTransformer() {
 

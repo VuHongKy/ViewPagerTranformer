@@ -3,7 +3,7 @@ package vn.beautylife.pagertransformerlibrary
 import android.view.View
 
 /**
- * Created by vuhon on 26-Mar-18.
+ * So so
  */
 class DefaultTransformer : BaseTransformer() {
 

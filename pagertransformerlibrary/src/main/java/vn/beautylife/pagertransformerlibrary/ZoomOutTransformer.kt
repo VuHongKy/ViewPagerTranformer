@@ -4,7 +4,7 @@ import android.view.View
 import kotlin.math.abs
 
 /**
- * beautiful
+ * Very beautiful
  */
 class ZoomOutTransformer : BaseTransformer() {
 

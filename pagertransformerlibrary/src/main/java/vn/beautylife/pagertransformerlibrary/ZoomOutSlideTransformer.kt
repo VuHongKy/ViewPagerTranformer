@@ -5,7 +5,7 @@ import kotlin.math.abs
 import kotlin.math.max
 
 /**
- * beautiful
+ * Very beautiful
  */
 class ZoomOutSlideTransformer(private val fadeAnimation: Boolean = false) : BaseTransformer() {
     companion object {

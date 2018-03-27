@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener {
         val imageAdapter = ImagePagerAdapter(supportFragmentManager, imageList)
         viewPager.run {
             adapter = imageAdapter
-            setPageTransformer(true, ZoomOutSlideTransformer())
+            setPageTransformer(true, ZoomOutTransformer())
             offscreenPageLimit = 4
             currentItem = initialPosition
             setOnTouchListener(this@MainActivity)
