@@ -17,4 +17,8 @@ class FlipHorizontalTransformer : BaseTransformer() {
         }
     }
 
+    override fun isPagingEnabled(): Boolean {
+        return true
+    }
+
 }
