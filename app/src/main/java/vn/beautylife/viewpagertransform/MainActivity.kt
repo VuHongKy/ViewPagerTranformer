@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.MotionEvent
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,6 +15,7 @@ import vn.beautylife.pagertransformerlibrary.*
 import kotlin.math.abs
 
 class MainActivity : AppCompatActivity(), View.OnTouchListener {
+    private val transformerList = mutableListOf<String>()
     private val imageList: MutableList<Int> = mutableListOf()
     private val initialPosition = 2
     private var x1: Float? = null
@@ -41,11 +43,32 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener {
         imageList.add(R.drawable.img7)
         imageList.add(R.drawable.img8)
         imageList.add(R.drawable.img9)
+
+        transformerList.add(AccordionTransformer::class.java.name)
+        transformerList.add(ParallaxPageTransformer::class.java.name)
+        transformerList.add(StackTransformer::class.java.name)
+        transformerList.add(ZoomInTransformer::class.java.name)
+        transformerList.add(ZoomOutTransformer::class.java.name)
+        transformerList.add(ZoomOutSlideTransformer::class.java.name)
+        transformerList.add(DepthPageTransformer::class.java.name)
+        transformerList.add(BackgroundToForegroundTransformer::class.java.name)
+        transformerList.add(ForegroundToBackgroundTransformer::class.java.name)
+
+        transformerList.add(CubeOutTransformer::class.java.name)
+        transformerList.add(CubeInTransformer::class.java.name)
+        transformerList.add(FlipHorizontalTransformer::class.java.name)
+        transformerList.add(FlipVerticalTransformer::class.java.name)
+        transformerList.add(RotateUpTransformer::class.java.name)
+        transformerList.add(RotateDownTransformer::class.java.name)
+        transformerList.add(DrawFromBackTransformer::class.java.name)
+        transformerList.add(TabletTransformer::class.java.name)
+        transformerList.add(DefaultTransformer::class.java.name)
     }
 
     private fun setupViews() {
         setupViewPager()
-        setupRecyclerView()
+        setupRecyclerTransformer()
+        setupRecyclerImage()
     }
 
     private fun setupViewPager() {
@@ -58,18 +81,43 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener {
             setOnTouchListener(this@MainActivity)
             addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
                 override fun onPageSelected(position: Int) {
-                    recyclerView.scrollToPosition(position)
+                    recyclerImage.scrollToPosition(position)
                 }
             })
         }
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerTransformer() {
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val recyclerAdapter = TransformerNameAdapter(transformerList, 4).apply {
+            setOnItemClickListener {
+                selectItem(it)
+                viewPager.setPageTransformer(true,
+                        if (transformerList[it] == ParallaxPageTransformer::class.java.name)
+                        ParallaxPageTransformer(R.id.image)
+                        else createObjectFromClassName(transformerList[it])
+                )
+            }
+        }
+        recyclerTransformer.run {
+            setHasFixedSize(true)
+            setItemViewCacheSize(5)
+            setLayoutManager(layoutManager)
+            adapter = recyclerAdapter
+        }
+    }
+
+    private fun createObjectFromClassName(className: String): ViewPager.PageTransformer {
+        val clazz = Class.forName(className) // className full, not simpleName
+        return clazz.getConstructor().newInstance() as ViewPager.PageTransformer
+    }
+
+    private fun setupRecyclerImage() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val recyclerAdapter = ImageListAdapter(imageList).apply {
             setOnItemClickListener { viewPager.currentItem = it }
         }
-        recyclerView.run {
+        recyclerImage.run {
             setHasFixedSize(true)
             setItemViewCacheSize(5)
             setLayoutManager(layoutManager)
@@ -88,7 +136,8 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener {
                 return if (abs(x2!! - x1!!) > SWIPE_MIN_THRESHOLD) { // Swipe horizon
                     false
                 } else { // single tap = hide/show recycerView
-                    showRecyclerView(!recyclerView.isShown)
+                    showRecyclerView(recyclerTransformer, !recyclerTransformer.isShown)
+                    showRecyclerView(recyclerImage, !recyclerImage.isShown)
                     true
                 }
             }
@@ -96,7 +145,7 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener {
         return false
     }
 
-    private fun showRecyclerView(show: Boolean = true) {
+    private fun showRecyclerView(recyclerView: RecyclerView, show: Boolean = true) {
         if (show) recyclerView.visibility = View.VISIBLE
         recyclerView.animate()
                 .alpha(if (show) 1f else 0f)

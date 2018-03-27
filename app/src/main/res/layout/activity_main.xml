@@ -11,10 +11,25 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerTransformer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/recyclerImage"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="5dp"
+        android:scrollbars="none"
+        android:clipToPadding="false"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
