@@ -21,9 +21,13 @@ dependencies {
 ## Use:
 ```java
 // Reference (or instantiate) a ViewPager instance and apply a transformer
-pager = (ViewPager) findViewById(R.id.container);
-pager.setAdapter(mAdapter);
-pager.setPageTransformer(true, new RotateUpTransformer());
+pager = findViewById<ViewPager>(R.id.container)
+pager.setAdapter(mAdapter)
+pager.setPageTransformer(true, new RotateUpTransformer())
+```
+```java
+// You can pass param too
+pager.setPageTransformer(true, new ZoomOutSlideTransformer(false)) // fadeAnimation = false
 ```
 
 # List of transformers
