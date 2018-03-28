@@ -103,6 +103,8 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener {
 
     private fun onItemTransformerClick(adapter: TransformerNameAdapter, position: Int) {
         adapter.selectItem(position)
+        showRecyclerView(recyclerTransformer, false)
+        showRecyclerView(recyclerImage, false)
         viewPager.setPageTransformer(true,
                 if (transformerList[position] == ParallaxPageTransformer::class.java.name)
                     ParallaxPageTransformer(R.id.image)
