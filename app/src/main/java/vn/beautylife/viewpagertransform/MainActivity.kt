@@ -90,21 +90,24 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener {
     private fun setupRecyclerTransformer() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val recyclerAdapter = TransformerNameAdapter(transformerList, 4).apply {
-            setOnItemClickListener {
-                selectItem(it)
-                viewPager.setPageTransformer(true,
-                        if (transformerList[it] == ParallaxPageTransformer::class.java.name)
-                        ParallaxPageTransformer(R.id.image)
-                        else createObjectFromClassName(transformerList[it])
-                )
-            }
+            setOnItemClickListener { onItemTransformerClick(this, it) }
         }
         recyclerTransformer.run {
             setHasFixedSize(true)
             setItemViewCacheSize(5)
-            setLayoutManager(layoutManager)
+            this.layoutManager = layoutManager
+            itemAnimator = ReuseItemAnimator()
             adapter = recyclerAdapter
         }
+    }
+
+    private fun onItemTransformerClick(adapter: TransformerNameAdapter, position: Int) {
+        adapter.selectItem(position)
+        viewPager.setPageTransformer(true,
+                if (transformerList[position] == ParallaxPageTransformer::class.java.name)
+                    ParallaxPageTransformer(R.id.image)
+                else createObjectFromClassName(transformerList[position])
+        )
     }
 
     private fun createObjectFromClassName(className: String): ViewPager.PageTransformer {
