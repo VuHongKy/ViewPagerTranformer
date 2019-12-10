@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity(), View.OnTouchListener {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        when(event?.action) {
+        when (event?.action) {
             MotionEvent.ACTION_DOWN -> x1 = event.x
             MotionEvent.ACTION_MOVE -> return false // Swipe horizon
             MotionEvent.ACTION_UP -> {
